@@ -11,6 +11,7 @@ def load_data():
 
 url = "https://remibounoua7.github.io/NBA-Championship-Corner/"
 
+st.title("# Contender Detector")
 st.write("# Contender Detector")
 st.write('''The idea behind this app is to get a glimpse at which teams are well setup today to win the title. 
 Below is a graph where teams are ranked based on their relative Offense and Defense. The more a team is to the right(/top), the best it is on offense(/defense). 
