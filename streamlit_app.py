@@ -80,7 +80,7 @@ fig.update_layout(
     xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
     yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
     #width=250,
-    height=800,
+    height=750,
     title=f"Contenders on {selected_date.date()}",
 )
 
