@@ -7,7 +7,7 @@ import base64
 # Load CSV file
 @st.cache_data
 def load_data():
-    return pd.read_csv('Day_by_Day Ratings 2024.csv')
+    return pd.read_csv('Day_by_Day Ratings 2025.csv')
 
 url = "https://remibounoua7.github.io/NBA-Championship-Corner/"
 
