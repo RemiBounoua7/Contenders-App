@@ -80,11 +80,9 @@ fig.update_layout(
     xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
     yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
     #width=250,
-    height=750,
+    height=700,
     title=f"Contenders on {selected_date.date()}",
 )
 
 # Display plot
 st.plotly_chart(fig)
-
-st.write("If you want to know more about the golden zone, the methodology is [right here](%s)" % url)
