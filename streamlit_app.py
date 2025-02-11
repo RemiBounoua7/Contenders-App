@@ -79,8 +79,8 @@ fig.add_shape(type="circle",
 fig.update_layout(
     xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
     yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
-    width=500,
-    height=800,
+    width=400,
+    height=650,
     title=f"Contenders on {selected_date.date()}",
 )
 
