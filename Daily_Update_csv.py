@@ -70,46 +70,31 @@ def get_regular_season_dates(year: int):
 
 year=2025
 
-start_date, end_date = get_regular_season_dates(year)
-Days = daily_dates(start_date, end_date)
 team_names = leaguedashteamstats.LeagueDashTeamStats(season=f"{year-1}-{str(year)[-2:]}").get_data_frames()[0]['TEAM_NAME']
+today = datetime.date.today()
 
-Final_df = pd.DataFrame({
-"Date": [start_date],
-"Team": None,   
-"Normalized Offensive Rating":None,
-"Normalized Defensive Rating": None
+# Fetch advanced stats for the year
+team_advanced_stats = leaguedashteamstats.LeagueDashTeamStats(
+season=f"{year-1}-{str(year)[-2:]}",
+season_type_all_star="Regular Season",
+measure_type_detailed_defense='Advanced'
+).get_data_frames()[0]
+
+
+normalized_off_rating = normalize_ratings(list(team_advanced_stats['OFF_RATING']),False)
+normalized_def_rating = normalize_ratings(list(team_advanced_stats['DEF_RATING']),True)
+
+Day_df = pd.DataFrame({
+    "Date":today,
+    "Team":team_names,
+    "Normalized Offensive Rating": normalized_off_rating,
+    "Normalized Defensive Rating": normalized_def_rating
 })
-    
-for i in range(1,len(Days)):
-    day = Days[i]  
-    print(day)
-    # Fetch advanced stats for the year
-    team_advanced_stats = leaguedashteamstats.LeagueDashTeamStats(
-    date_from_nullable=start_date,
-    date_to_nullable=day,
-    season=f"{year-1}-{str(year)[-2:]}",
-    season_type_all_star="Regular Season",
-    measure_type_detailed_defense='Advanced'
-    ).get_data_frames()[0]
 
-    time.sleep(.5)       
+Final_df1 = pd.read_csv("Day_by_Day Ratings 2025.csv").drop('Unnamed: 0',axis=1)
+Final_df_2 = pd.concat([Final_df1,Day_df], ignore_index=True)
 
-    normalized_off_rating = normalize_ratings(list(team_advanced_stats['OFF_RATING']),False)
-    normalized_def_rating = normalize_ratings(list(team_advanced_stats['DEF_RATING']),True)
-    
-    Day_df = pd.DataFrame({
-        "Date":day,
-        "Team":team_names,
-        "Normalized Offensive Rating": normalized_off_rating,
-        "Normalized Defensive Rating": normalized_def_rating
-    })
-    
-    Final_df = pd.concat([Final_df,Day_df], ignore_index=True)
-
-Final_df = Final_df.drop(0)
-Final_df.to_csv("Day_by_Day Ratings 2025.csv")
-
+Final_df_2.to_csv("Day_by_Day Ratings 2025.csv", index=True)
 
 # Path to your local repository
 repo_path = ''
