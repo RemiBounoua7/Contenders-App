@@ -68,7 +68,6 @@ def get_regular_season_dates(year: int):
     return start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')
 
 
-
 year=2025
 
 start_date, end_date = get_regular_season_dates(year)
@@ -84,7 +83,7 @@ Final_df = pd.DataFrame({
     
 for i in range(1,len(Days)):
     day = Days[i]  
-
+    print(day)
     # Fetch advanced stats for the year
     team_advanced_stats = leaguedashteamstats.LeagueDashTeamStats(
     date_from_nullable=start_date,
