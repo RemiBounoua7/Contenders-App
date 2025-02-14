@@ -48,10 +48,8 @@ selected_date = st.slider("Select a Date", min_value=datetime.datetime(yearmin,m
 
 # Filter data for selected date
 filtered_data = data[pd.to_datetime(data['Date']) == selected_date]
-
 # Create figure
 fig = go.Figure()
-
 # Add custom images for each point
 for _, row in filtered_data.iterrows():
     #st.image(image_mapping[row['Team']])
@@ -79,16 +77,16 @@ fig.add_shape(type="circle",
     line_color="Orange",
     layer="below",
 )
-
 # Update axes and layout
 fig.update_layout(
     xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
     yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
     #width=250,
     height=700,
-    #title=f"Contenders on {selected_date.date()}",
+    title=f"Contenders on {selected_date.date()}",
 )
-
 # Display plot
 st.plotly_chart(fig,use_container_width=True,config={'displayModeBar': False})
-st.query_params.slider = selected_date
+
+#Prevent scroling to the top of the page. Deprecated method but nothing else works
+st.experimental_set_query_params(slider=selected_date)
