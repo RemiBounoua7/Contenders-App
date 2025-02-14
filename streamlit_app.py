@@ -16,6 +16,13 @@ def encode_image_to_base64(image_path):
 
 url = "https://public.tableau.com/app/profile/r.mi.bounoua4636/viz/GoldenChampionshipZone/Dashboard2"
 
+st.write("# Introduction")
+st.write('''The NBA is a very competitive industry in which 30 teams give their all out on the court all year, with only one champion. At the start of each season, every team has a different objective, depending on their roster's strength. But how many can realistically target the Larry O'Brien trophy ?
+
+We'll try and define a threshold beyong which teams have little to no chance of winning the title, based on previous NBA seasons, 1997 and onwards. Is it always the best regular season team that wins it all ? How 'bad' can you be and still have hope based on what happened in the past ? Also, what does it say about this year's teams ? Who are the *real* contenders ?
+
+That's what we are trying to find out. You'll see, it's gonna be fun.''')
+
 st.write("# Choosing measures and normalization process")
 st.write('''To determine the strength of NBA teams during the regular season, we will take Offensive and Defensive ratings. Those are simple measures encapsulating how good/bad teams are on offense and defense, pretty straightforward. However, for year to year comparison stakes, we have to normalize our data, so here's a little explanation on the process and why we do it.
 If you are already familiar with the concept, feel free to skip to the next section.
@@ -27,6 +34,7 @@ You might also be familiar with the fact that offensive ratings have skyrockette
 
 That's where our normalization process comes in, to solve both problems at once. We want to transform all those ratings into a value, that helps us see which team was a good offense/defense in it's time. What we do is we take the year's ratings for all teams, and make them fit into a O-1 range. The best offense will get a 1, the worst will get 0. Same for defense.
 That way we can compare teams between eras on their relative dominance, and not raw numbers.''')
+
 data = load_data()
 # Map point IDs to image paths
 image_folder = "NBA Team Logos/"  # Replace with your folder path
