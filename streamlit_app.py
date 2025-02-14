@@ -19,12 +19,6 @@ st.write("I would advise you to read that page and get familiar with the concept
 
 st.write("Now that you are familiar with the concept, you can select a date in the 2024-25 season and see which teams were in the contender zone. You can play with the slider and notice slumps in performances, good weeks, players getting hurt, players coming back ... The floor is yours.")
 
-st.markdown("""
-<style>
-    * {
-       overflow-anchor: none !important;
-       }
-</style>""", unsafe_allow_html=True)
 
 data = load_data()
 # Helper function to encode image to base64
@@ -97,3 +91,4 @@ fig.update_layout(
 
 # Display plot
 st.plotly_chart(fig,use_container_width=True,config={'displayModeBar': False})
+st.query_params.slider = selected_date
