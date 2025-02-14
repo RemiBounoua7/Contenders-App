@@ -90,4 +90,4 @@ st.plotly_chart(fig,use_container_width=True,config={'displayModeBar': False})
 
 #Prevent scroling to the top of the page. Deprecated method but nothing else works
 #st.experimental_set_query_params(slider=selected_date)
-st.query_params.slider=selected_date
+st.query_params.slider=datetime.datetime(yearmax,monthmax,daymax )
