@@ -91,5 +91,5 @@ fig.update_layout(
 )
 
 # Display plot
-st.plotly_chart(fig)
-st.experimental_set_query_params(slider=selected_date)
+st.plotly_chart(fig,use_container_width=True,config={'displayModeBar': False})
+st.query_params(slider=selected_date)
