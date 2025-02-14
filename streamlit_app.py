@@ -6,8 +6,10 @@ import base64
 
 # Load CSV file
 @st.cache_data
-def load_data():
+def load_todays_data():
     return pd.read_csv('Day_by_Day Ratings 2025.csv')
+def load_historical_data():
+    return pd.read_csv('1996-2024 team ratings.csv')
 
 # Helper function to encode image to base64
 def encode_image_to_base64(image_path):
@@ -32,10 +34,10 @@ What we want to get out of this is the relative strengths of teams, not the abso
 
 You might also be familiar with the fact that offensive ratings have skyrocketted in the last decade, due to multiple factors including but not limited to the 3 Point revolution. This fact alone prevents us from comparing eras on ratings, because a good defense in the 2020's would look like the worst defense in the 1990's numberwise.
 
-That's where our normalization process comes in, to solve both problems at once. We want to transform all those ratings into a value, that helps us see which team was a good offense/defense in it's time. What we do is we take the year's ratings for all teams, and make them fit into a O-1 range. The best offense will get a 1, the worst will get 0. Same for defense.
+That's where our normalization process comes in, to solve both problems at once. We want to transform all those ratings into a value, that helps us see which team was a good offense/defense in it's time. What we do is we take the year's ratings for all teams, and make them fit into a 0-1 range. The best offense will get a 1, the worst will get 0. Same for defense.
 That way we can compare teams between eras on their relative dominance, and not raw numbers.''')
 
-data = load_data()
+data = load_todays_data()
 # Map point IDs to image paths
 image_folder = "NBA Team Logos/"  # Replace with your folder path
 image_mapping = {
@@ -74,12 +76,11 @@ fig1.update_layout(
     height=700,
 )
 
-col1, mid, col2 = st.beta_columns([1,1,20])
-with col1:
-    st.plotly_chart(fig1)
-with col2:
-    st.write("""There you have the 2024-25 teams ranked based on these principles. You can observe everything we talk about : how OKC is the best defense and Cleveland the best offense. How bad are the Wizards relative to everyone else.
-    The exact numbers aren't that important, it's the position in the graph and the relative gap between teams that matter. And just like we hypothesized, the best team are in the top right quadrant, with good defense and offense. """)
+
+st.plotly_chart(fig1)
+
+st.write("""There you have the 2024-25 teams ranked based on these principles. You can observe everything we talk about : how OKC is the best defense and Cleveland the best offense. How bad are the Wizards relative to everyone else.
+The exact numbers aren't that important, it's the position in the graph and the relative gap between teams that matter. And just like we hypothesized, the best team are in the top right quadrant, with good defense and offense. """)
     
 
 # Date slider
