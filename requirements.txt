@@ -1,4 +1,3 @@
 plotly
 pandas
 datetime
-streamlit-vertical-slider
