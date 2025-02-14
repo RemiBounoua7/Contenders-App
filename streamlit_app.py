@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import datetime
 import base64
+from  streamlit_vertical_slider import vertical_slider
 
 # Load CSV file
 @st.cache_data
@@ -51,7 +52,17 @@ daymax = dates.max().day
 
 
 selected_date = st.slider("Select a Date", min_value=datetime.datetime(yearmin,monthmin,daymin), max_value= datetime.datetime(yearmax,monthmax,daymax ), value=datetime.datetime(yearmax,monthmax,daymax ))
-
+vertical_slider(
+    label = "% of the season",  #Optional
+    key = "vert_01" ,
+    height = 300, #Optional - Defaults to 300
+    thumb_shape = "square", #Optional - Defaults to "circle"
+    step = 1, #Optional - Defaults to 1
+    default_value=5 ,#Optional - Defaults to 0
+    min_value= 0, # Defaults to 0
+    max_value= 100, # Defaults to 10
+    value_always_visible = True ,#Optional - Defaults to False
+)
 # Filter data for selected date
 filtered_data = data[pd.to_datetime(data['Date']) == selected_date]
 
