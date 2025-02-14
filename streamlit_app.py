@@ -45,7 +45,7 @@ monthmax = dates.max().month
 daymax = dates.max().day
 
 
-selected_date = st.slider("Select a Date", min_value=datetime.datetime(yearmin,monthmin,daymin), max_value= datetime.datetime(yearmax,monthmax,daymax ), value=datetime.datetime(yearmax,monthmax,daymax ))
+selected_date = st.slider("Select a Date", min_value=datetime.datetime(yearmin,monthmin,daymin), max_value= datetime.datetime(yearmax,monthmax,daymax ), value=datetime.datetime(yearmax,monthmax,daymax ), scrollTo=False)
 
 # Filter data for selected date
 filtered_data = data[pd.to_datetime(data['Date']) == selected_date]
@@ -87,9 +87,8 @@ fig.update_layout(
     yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
     #width=250,
     height=700,
-    title=f"Contenders on {selected_date.date()}",
+    #title=f"Contenders on {selected_date.date()}",
 )
 
 # Display plot
 st.plotly_chart(fig,use_container_width=True,config={'displayModeBar': False})
-st.query_params(slider=selected_date)
