@@ -92,3 +92,4 @@ fig.update_layout(
 
 # Display plot
 st.plotly_chart(fig)
+st.experimental_set_query_params(slider=selected_date)
