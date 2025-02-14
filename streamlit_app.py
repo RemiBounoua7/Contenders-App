@@ -17,6 +17,9 @@ The threshold for contender status and the methodology used to define it are to 
 st.write("I would advise you to read that page and get familiar with the concept of the contender zone before playing with this app.")
 
 
+st.write("Now that you are familiar with the concept, you can select a date in the 2024-25 season and see which teams were in the contender zone. You can play with the slider and notice slumps in performances, good weeks, players getting hurt, players coming back ... The floor is yours.")
+
+
 
 data = load_data()
 # Helper function to encode image to base64
