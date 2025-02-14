@@ -3,7 +3,6 @@ import pandas as pd
 import plotly.graph_objects as go
 import datetime
 import base64
-from  streamlit_vertical_slider import vertical_slider
 
 # Load CSV file
 @st.cache_data
@@ -13,17 +12,9 @@ def load_data():
 url = "https://remibounoua7.github.io/NBA-Championship-Corner/"
 
 st.write("# Introduction")
-st.write('''The NBA is a very competitive industry in which 30 teams give their all out on the court all year, with only one champion. At the start of each season, every team has a different objective, depending on their roster's strength. But how many can realistically target the Larry O'Brien trophy ?
-
-We'll try and define a threshold beyong which teams have little to no chance of winning the title, based on previous NBA seasons, 1997 and onwards. Is it always the best regular season team that wins it all ? How 'bad' can you be and still have hope based on what happened in the past ? Also, what does it say about this year's teams ? Who are the *real* contenders ?
-
-That's what we are trying to find out. You'll see, it's gonna be fun.''')
-
-
-st.write("# Contender Detector")
-st.write('''The idea behind this app is to get a glimpse at which teams are well setup today to win the title. 
-Below is a graph where teams are ranked based on their relative Offense and Defense. The more a team is to the right(/top), the best it is on offense(/defense). 
-The golden quadrant is the zone in which teams should be if they want to win the title. Details on the methodology are to be found [here](%s).''' % url)
+st.write('''This app aims at finding out which teams are contenders for the title at a certain date. It encapsulates team's ratings in Offense and Defense, and maps them onto a grid.
+The threshold for contender status and the methodology used to define it are to be found [here](%s)''' % url)
+st.write("I would advise you to read that page and get familiar with the concept of the contender zone before playing with this app.")
 
 
 
@@ -52,17 +43,7 @@ daymax = dates.max().day
 
 
 selected_date = st.slider("Select a Date", min_value=datetime.datetime(yearmin,monthmin,daymin), max_value= datetime.datetime(yearmax,monthmax,daymax ), value=datetime.datetime(yearmax,monthmax,daymax ))
-vertical_slider(
-    label = "% of the season",  #Optional
-    key = "vert_01" ,
-    height = 300, #Optional - Defaults to 300
-    thumb_shape = "square", #Optional - Defaults to "circle"
-    step = 1, #Optional - Defaults to 1
-    default_value=5 ,#Optional - Defaults to 0
-    min_value= 0, # Defaults to 0
-    max_value= 100, # Defaults to 10
-    value_always_visible = True ,#Optional - Defaults to False
-)
+
 # Filter data for selected date
 filtered_data = data[pd.to_datetime(data['Date']) == selected_date]
 

@@ -69,9 +69,10 @@ def get_regular_season_dates(year: int):
 
 
 year=2025
+today = datetime.date.today()
 
 team_names = leaguedashteamstats.LeagueDashTeamStats(season=f"{year-1}-{str(year)[-2:]}").get_data_frames()[0]['TEAM_NAME']
-today = datetime.date.today()
+
 
 # Fetch advanced stats for the year
 team_advanced_stats = leaguedashteamstats.LeagueDashTeamStats(
