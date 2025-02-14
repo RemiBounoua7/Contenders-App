@@ -19,7 +19,12 @@ st.write("I would advise you to read that page and get familiar with the concept
 
 st.write("Now that you are familiar with the concept, you can select a date in the 2024-25 season and see which teams were in the contender zone. You can play with the slider and notice slumps in performances, good weeks, players getting hurt, players coming back ... The floor is yours.")
 
-
+st.markdown("""
+<style>
+    * {
+       overflow-anchor: none !important;
+       }
+</style>""", unsafe_allow_html=True)
 
 data = load_data()
 # Helper function to encode image to base64
@@ -45,7 +50,7 @@ monthmax = dates.max().month
 daymax = dates.max().day
 
 
-selected_date = st.slider("Select a Date", min_value=datetime.datetime(yearmin,monthmin,daymin), max_value= datetime.datetime(yearmax,monthmax,daymax ), value=datetime.datetime(yearmax,monthmax,daymax ), scrollTo=False)
+selected_date = st.slider("Select a Date", min_value=datetime.datetime(yearmin,monthmin,daymin), max_value= datetime.datetime(yearmax,monthmax,daymax ), value=datetime.datetime(yearmax,monthmax,daymax ))
 
 # Filter data for selected date
 filtered_data = data[pd.to_datetime(data['Date']) == selected_date]
