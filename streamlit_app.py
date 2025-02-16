@@ -84,13 +84,8 @@ Day_df = pd.DataFrame({
 })
 
 
-
 # Filter data for selected date
 filtered_data = Day_df
-
-
-
-
 
 
 # Create figure
