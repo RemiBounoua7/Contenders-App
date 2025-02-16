@@ -129,7 +129,7 @@ fig.update_layout(
     xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
     yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
     height=750,
-    title=f"Contenders from {selected_date[0][:-10]} to {selected_date[1]}",
+    title=f"Contenders from {selected_date[0].day} to {selected_date[1].day}",
 )
 
 # Display plot
