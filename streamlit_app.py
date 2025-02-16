@@ -6,10 +6,6 @@ import base64
 from nba_api.stats.endpoints import leaguedashteamstats
 from nba_api.stats.static import teams
 
-# Load CSV file
-@st.cache_data
-def load_data():
-    return pd.read_csv('Day_by_Day Ratings 2025.csv')
 def normalize_ratings(c1,defensive):
     
     #Takes a list, normalizes it and returns the normalized list
@@ -37,17 +33,20 @@ st.write("# Contender Detector")
 st.write('''The idea behind this app is to get a glimpse at which teams are well setup today to win the title. 
 Below is a graph where teams are ranked based on their relative Offense and Defense. The more a team is to the right(/top), the best it is on offense(/defense). 
 The golden quadrant is the zone in which teams should be if they want to win the title. Details on the methodology are to be found [here](%s).''' % url)
-data = load_data()
+
 # Helper function to encode image to base64
 def encode_image_to_base64(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode()
-    
+
+TEAMS = teams.get_teams()
+team_names= sorted([list(teams.get_teams()[i].values())[1] for i in range(len(TEAMS))])
+st.write(team_names)
 # Map point IDs to image paths
 image_folder = "NBA Team Logos/"  # Replace with your folder path
 image_mapping = {
     team: f"data:image/png;base64,{encode_image_to_base64(f'{image_folder}{team}.png')}"
-    for team in data['Team'].unique()
+    for team in team_names
 }
 
 
