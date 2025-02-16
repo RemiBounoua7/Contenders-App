@@ -41,7 +41,7 @@ def encode_image_to_base64(image_path):
 
 TEAMS = teams.get_teams()
 team_names= sorted([list(teams.get_teams()[i].values())[1] for i in range(len(TEAMS))])
-st.write(team_names)
+
 # Map point IDs to image paths
 image_folder = "NBA Team Logos/"  # Replace with your folder path
 image_mapping = {
@@ -63,9 +63,6 @@ daymax = today.day
 
 selected_date = st.slider("Select a time interval and visualize how teams did in that span", min_value=datetime.datetime(2024,10,24), max_value= datetime.datetime(yearmax,monthmax,daymax ), value=(datetime.datetime(2024,10,24),datetime.datetime(yearmax,monthmax,daymax )))
 
-
-team_names = leaguedashteamstats.LeagueDashTeamStats(season=f"{year-1}-{str(year)[-2:]}").get_data_frames()[0]['TEAM_NAME']
-
 # Fetch advanced stats for the year
 team_advanced_stats = leaguedashteamstats.LeagueDashTeamStats(
 season=f"{year-1}-{str(year)[-2:]}",
@@ -86,7 +83,6 @@ Day_df = pd.DataFrame({
     "Normalized Defensive Rating": normalized_def_rating
 })
 
-st.write(Day_df)
 
 
 # Filter data for selected date
@@ -102,7 +98,7 @@ fig = go.Figure()
 
 # Add custom images for each point
 for _, row in filtered_data.iterrows():
-    st.image(image_mapping[row['Team']])
+    #st.image(image_mapping[row['Team']])
     fig.add_layout_image(
         dict(
             source=image_mapping[row['Team']],
