@@ -130,6 +130,8 @@ fig.update_layout(
 # Display plot
 st.plotly_chart(fig)
 
-st.write("If you want to know more about the golden zone, the methodology is [right here](%s)" % url)
+twitter_url = "https://x.com/ZieseI"
+st.write("Follow me on Twitter for more visualizations like this one. Link [here](%s)" % twitter_url)
+
 #Prevent scroling to the top of the page. Deprecated method but nothing else works
 st.experimental_set_query_params(slider=selected_date[0])
