@@ -86,7 +86,7 @@ Day_df = pd.DataFrame({
     "Normalized Defensive Rating": normalized_def_rating
 })
 
-
+st.write(Day_df)
 
 
 # Filter data for selected date
