@@ -3,23 +3,40 @@ import pandas as pd
 import plotly.graph_objects as go
 import datetime
 import base64
+from nba_api.stats.endpoints import leaguedashteamstats
+from nba_api.stats.static import teams
 
 # Load CSV file
 @st.cache_data
 def load_data():
     return pd.read_csv('Day_by_Day Ratings 2025.csv')
+def normalize_ratings(c1,defensive):
+    
+    #Takes a list, normalizes it and returns the normalized list
+    
+    
+    Max_c1 = max(c1)
+    Min_c1 = min(c1)
+
+    n_c1 = []
+    for i in c1:
+                
+        normalized_c1 = (i-Min_c1) / (Max_c1-Min_c1) if Max_c1!=Min_c1 else 0
+        
+        #If we are normalizing defensive winrate, reverse the values (so that best defenses get 1 instead of 0)
+        if defensive:
+            n_c1.append(1-normalized_c1)
+        else:
+            n_c1.append(normalized_c1)
+    
+    return n_c1
 
 url = "https://remibounoua7.github.io/NBA-Championship-Corner/"
 
-st.write("# Introduction")
-st.write('''This app aims at finding out which teams are contenders for the title at a certain date. It encapsulates team's ratings in Offense and Defense, and maps them onto a grid.
-The threshold for contender status and the methodology used to define it are to be found [here](%s)''' % url)
-st.write("I would advise you to read that page and get familiar with the concept of the contender zone before playing with this app.")
-
-
-st.write("Now that you are familiar with the concept, you can select a date in the 2024-25 season and see which teams were in the contender zone. You can play with the slider and notice slumps in performances, good weeks, players getting hurt, players coming back ... The floor is yours.")
-
-
+st.write("# Contender Detector")
+st.write('''The idea behind this app is to get a glimpse at which teams are well setup today to win the title. 
+Below is a graph where teams are ranked based on their relative Offense and Defense. The more a team is to the right(/top), the best it is on offense(/defense). 
+The golden quadrant is the zone in which teams should be if they want to win the title. Details on the methodology are to be found [here](%s).''' % url)
 data = load_data()
 # Helper function to encode image to base64
 def encode_image_to_base64(image_path):
@@ -32,24 +49,58 @@ image_mapping = {
     team: f"data:image/png;base64,{encode_image_to_base64(f'{image_folder}{team}.png')}"
     for team in data['Team'].unique()
 }
+
+
 # Date slider
-dates = pd.to_datetime(data['Date'].unique())
-
-yearmin = dates.min().year
-monthmin = dates.min().month
-daymin = dates.min().day
-
-yearmax = dates.max().year
-monthmax = dates.max().month
-daymax = dates.max().day
+year=2025
+today = datetime.date.today()
+start_of_the_season = '2024-10-24'
 
 
-selected_date = st.slider("Select a Date", min_value=datetime.datetime(yearmin,monthmin,daymin), max_value= datetime.datetime(yearmax,monthmax,daymax ), value=datetime.datetime(yearmax,monthmax,daymax ))
+yearmax = today.year
+monthmax = today.month
+daymax = today.day
+
+
+selected_date = st.slider("Select a time interval and visualize how teams did in that span", min_value=datetime.datetime(2024,10,24), max_value= datetime.datetime(yearmax,monthmax,daymax ), value=(datetime.datetime(2024,10,24),datetime.datetime(yearmax,monthmax,daymax )))
+
+
+team_names = leaguedashteamstats.LeagueDashTeamStats(season=f"{year-1}-{str(year)[-2:]}").get_data_frames()[0]['TEAM_NAME']
+
+# Fetch advanced stats for the year
+team_advanced_stats = leaguedashteamstats.LeagueDashTeamStats(
+season=f"{year-1}-{str(year)[-2:]}",
+season_type_all_star="Regular Season",
+measure_type_detailed_defense='Advanced',
+date_from_nullable=selected_date[0],
+date_to_nullable=selected_date[1]
+).get_data_frames()[0]
+
+
+normalized_off_rating = normalize_ratings(list(team_advanced_stats['OFF_RATING']),False)
+normalized_def_rating = normalize_ratings(list(team_advanced_stats['DEF_RATING']),True)
+
+Day_df = pd.DataFrame({
+    "Date":today,
+    "Team":team_names,
+    "Normalized Offensive Rating": normalized_off_rating,
+    "Normalized Defensive Rating": normalized_def_rating
+})
+
+
+
 
 # Filter data for selected date
-filtered_data = data[pd.to_datetime(data['Date']) == selected_date]
+filtered_data = Day_df
+
+
+
+
+
+
 # Create figure
 fig = go.Figure()
+
 # Add custom images for each point
 for _, row in filtered_data.iterrows():
     #st.image(image_mapping[row['Team']])
@@ -77,17 +128,19 @@ fig.add_shape(type="circle",
     line_color="Orange",
     layer="below",
 )
+
 # Update axes and layout
 fig.update_layout(
     xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
     yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
-    #width=250,
-    height=750,
-    title=f"Contenders on {selected_date.date()}",
+    width=500,
+    height=600,
+    title=f"Contenders from {selected_date[0]} to {selected_date[1]}",
 )
-# Display plot
-st.plotly_chart(fig,use_container_width=True,config={'displayModeBar': False})
 
+# Display plot
+st.plotly_chart(fig)
+
+st.write("If you want to know more about the golden zone, the methodology is [right here](%s)" % url)
 #Prevent scroling to the top of the page. Deprecated method but nothing else works
-st.experimental_set_query_params(slider=selected_date)
-#st.query_params.slider=datetime.datetime(yearmax,monthmax,daymax )
+st.experimental_set_query_params(slider=selected_date[0])
