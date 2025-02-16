@@ -128,9 +128,8 @@ fig.add_shape(type="circle",
 fig.update_layout(
     xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
     yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
-    width=500,
-    height=600,
-    title=f"Contenders from {selected_date[0]} to {selected_date[1]}",
+    height=750,
+    title=f"Contenders from {selected_date[0][:-10]} to {selected_date[1]}",
 )
 
 # Display plot
