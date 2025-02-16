@@ -102,7 +102,7 @@ fig = go.Figure()
 
 # Add custom images for each point
 for _, row in filtered_data.iterrows():
-    #st.image(image_mapping[row['Team']])
+    st.image(image_mapping[row['Team']])
     fig.add_layout_image(
         dict(
             source=image_mapping[row['Team']],
