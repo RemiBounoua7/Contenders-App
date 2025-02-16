@@ -29,7 +29,7 @@ def normalize_ratings(c1,defensive):
 
 url = "https://remibounoua7.github.io/NBA-Championship-Corner/"
 
-st.write("# Contender Detector")
+st.title("Contender Detector")
 st.write('''The idea behind this app is to get a glimpse at which teams are well setup today to win the title. 
 Below is a graph where teams are ranked based on their relative Offense and Defense. The more a team is to the right(/top), the best it is on offense(/defense). 
 The golden quadrant is the zone in which teams should be if they want to win the title. Details on the methodology are to be found [here](%s).''' % url)
