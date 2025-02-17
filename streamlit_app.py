@@ -53,7 +53,7 @@ image_mapping = {
 # Date slider
 year=2025
 today = datetime.date.today()
-start_of_the_season = '2024-10-24'
+start_of_the_season = '2024-10-22'
 
 
 yearmax = today.year
