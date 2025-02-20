@@ -87,23 +87,6 @@ Day_df = pd.DataFrame({
 # Filter data for selected date
 filtered_data = Day_df
 
-# JavaScript to detect screen size and send it to Python
-js_code = """
-<script>
-    (function() {
-        const getSize = () => {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            const size = {width, height};
-            Streamlit.setComponentValue(size);
-        };
-        window.addEventListener('resize', getSize);
-        getSize();
-    })();
-</script>
-"""
-
-size = st.components.v1.html(js_code, height=0, width=0, component_value={"width": 800, "height": 600})
 
 # Create figure
 fig = go.Figure()
@@ -137,13 +120,12 @@ fig.add_shape(type="circle",
 )
 
 # Update axes and layout
-if size:
-    fig.update_layout(
-        xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
-        yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
-        height=size['height'] * 0.6,
-        title=f"Contenders from {selected_date[0].day}/{selected_date[0].month}/{selected_date[0].year} to {selected_date[1].day}/{selected_date[1].month}/{selected_date[1].year}",
-    )
+fig.update_layout(
+    xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
+    yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
+    height=750,
+    title=f"Contenders from {selected_date[0].day}/{selected_date[0].month}/{selected_date[0].year} to {selected_date[1].day}/{selected_date[1].month}/{selected_date[1].year}",
+)
 
 # Display plot
 st.plotly_chart(fig,use_container_width=True)
