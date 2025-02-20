@@ -123,12 +123,12 @@ fig.add_shape(type="circle",
 fig.update_layout(
     xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
     yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
-    height=650,
+    height=850,
     title=f"Contenders from {selected_date[0].day}/{selected_date[0].month}/{selected_date[0].year} to {selected_date[1].day}/{selected_date[1].month}/{selected_date[1].year}",
 )
 
 # Display plot
-st.plotly_chart(fig,use_container_width=True, use_container_height = True)
+st.plotly_chart(fig,use_container_width=True)
 
 twitter_url = "https://x.com/ZieseI"
 st.write("Follow me on Twitter for more visualizations like this one. Link [here](%s)" % twitter_url)
