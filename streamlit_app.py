@@ -126,15 +126,14 @@ fig.update_layout(
     height=750,
     title=f"Contenders from {selected_date[0].day}/{selected_date[0].month}/{selected_date[0].year} to {selected_date[1].day}/{selected_date[1].month}/{selected_date[1].year}",
 )
-fig.add_annotation(x=.9, y=.01,
+fig.add_annotation(x=.99, y=-0.035,
             text="@ZieseI",
             showarrow=False,
             yshift=10,
             font=dict(
                 family="sans serif",
                 size=15,
-                color="#B7B7B7",
-                
+                color="#D3D5D7",
                 )
             )
 # Display plot
