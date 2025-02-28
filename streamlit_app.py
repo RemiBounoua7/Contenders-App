@@ -126,7 +126,15 @@ fig.update_layout(
     height=750,
     title=f"Contenders from {selected_date[0].day}/{selected_date[0].month}/{selected_date[0].year} to {selected_date[1].day}/{selected_date[1].month}/{selected_date[1].year}",
 )
-
+fig.add_annotation(x=.9, y=.9,
+            text="@ZieseI",
+            showarrow=False,
+            yshift=10,
+            textfont=dict(
+        family="sans serif",
+        size=3,
+        color="#B7B7B7"
+        ))
 # Display plot
 st.plotly_chart(fig)
 
