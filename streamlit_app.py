@@ -126,7 +126,7 @@ fig.update_layout(
     height=750,
     title=f"Contenders from {selected_date[0].day}/{selected_date[0].month}/{selected_date[0].year} to {selected_date[1].day}/{selected_date[1].month}/{selected_date[1].year}",
 )
-fig.add_annotation(x=.01, y=.9,
+fig.add_annotation(x=.9, y=.01,
             text="@ZieseI",
             showarrow=False,
             yshift=10,
