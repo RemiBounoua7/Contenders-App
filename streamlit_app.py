@@ -134,7 +134,7 @@ fig.add_annotation(x=.9, y=.9,
                 family="sans serif",
                 size=3,
                 color="#333232",
-                opacity=.7
+                
                 )
             )
 # Display plot
