@@ -130,11 +130,13 @@ fig.add_annotation(x=.9, y=.9,
             text="@ZieseI",
             showarrow=False,
             yshift=10,
-            textfont=dict(
-        family="sans serif",
-        size=3,
-        color="#B7B7B7"
-        ))
+            font=dict(
+                family="sans serif",
+                size=3,
+                color="#333232",
+                opacity=.7
+                )
+            )
 # Display plot
 st.plotly_chart(fig)
 
