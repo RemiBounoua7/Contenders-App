@@ -54,7 +54,7 @@ year=2025
 
 selected_date = st.slider("Select a time interval and visualize how teams did in that span", 
                           min_value=datetime.datetime(2024,10,24), 
-                          max_value= datetime.datetime(2024,4,13), 
+                          max_value= datetime.datetime(2025,4,13), 
                           value=(datetime.datetime(2024,10,24),
                                  datetime.datetime(2025,4,13)))
 
