@@ -30,7 +30,7 @@ def normalize_ratings(c1,defensive):
 url = "https://remibounoua7.github.io/NBA-Championship-Corner/"
 
 st.title("Contender Detector")
-st.write('''The idea behind this app is to get a glimpse at which teams are well setup today to win the title. 
+st.write('''Get a glimpse at which teams are well setup today to win the title. 
 Below is a graph where teams are ranked based on their relative Offense and Defense. The more a team is to the right(/top), the best it is on offense(/defense). 
 The golden quadrant is the zone in which teams should be if they want to win the title. Details on the methodology are to be found [here](%s).''' % url)
 
@@ -50,18 +50,13 @@ image_mapping = {
 }
 
 
-# Date slider
 year=2025
-today = datetime.date.today()
-start_of_the_season = '2024-10-22'
 
-
-yearmax = today.year
-monthmax = today.month
-daymax = today.day
-
-
-selected_date = st.slider("Select a time interval and visualize how teams did in that span", min_value=datetime.datetime(2024,10,24), max_value= datetime.datetime(yearmax,monthmax,daymax ), value=(datetime.datetime(2024,10,24),datetime.datetime(yearmax,monthmax,daymax )))
+selected_date = st.slider("Select a time interval and visualize how teams did in that span", 
+                          min_value=datetime.datetime(2024,10,24), 
+                          max_value= datetime.datetime(2024,4,13), 
+                          value=(datetime.datetime(2024,10,24),
+                                 datetime.datetime(2025,4,13)))
 
 # Fetch advanced stats for the year
 team_advanced_stats = leaguedashteamstats.LeagueDashTeamStats(
@@ -77,7 +72,6 @@ normalized_off_rating = normalize_ratings(list(team_advanced_stats['OFF_RATING']
 normalized_def_rating = normalize_ratings(list(team_advanced_stats['DEF_RATING']),True)
 
 Day_df = pd.DataFrame({
-    "Date":today,
     "Team":team_names,
     "Normalized Offensive Rating": normalized_off_rating,
     "Normalized Defensive Rating": normalized_def_rating
@@ -110,6 +104,7 @@ for _, row in filtered_data.iterrows():
             layer="above"
         )
     )
+
 
 fig.add_shape(type="circle",
     xref="x", yref="y",
