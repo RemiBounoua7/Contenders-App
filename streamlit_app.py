@@ -59,14 +59,17 @@ selected_date = st.slider("Select a time interval and visualize how teams did in
                                  datetime.datetime(2025,4,13)))
 
 # Fetch advanced stats for the year
-team_advanced_stats = leaguedashteamstats.LeagueDashTeamStats(
-season=f"{year-1}-{str(year)[-2:]}",
-season_type_all_star="Regular Season",
-measure_type_detailed_defense='Advanced',
-date_from_nullable=selected_date[0],
-date_to_nullable=selected_date[1],
-timeout=30).get_data_frames()[0]
-
+try:
+    team_advanced_stats = leaguedashteamstats.LeagueDashTeamStats(
+    season=f"{year-1}-{str(year)[-2:]}",
+    season_type_all_star="Regular Season",
+    measure_type_detailed_defense='Advanced',
+    date_from_nullable=selected_date[0].strftime("%m/%d/%Y"),
+    date_to_nullable=selected_date[1].strftime("%m/%d/%Y"),
+    timeout=30).get_data_frames()[0]
+except Exception as e:
+    st.error(f"Failed to fetch NBA data: {e}")
+    st.stop()
 
 normalized_off_rating = normalize_ratings(list(team_advanced_stats['OFF_RATING']),False)
 normalized_def_rating = normalize_ratings(list(team_advanced_stats['DEF_RATING']),True)
