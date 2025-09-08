@@ -64,7 +64,7 @@ season=f"{year-1}-{str(year)[-2:]}",
 season_type_all_star="Regular Season",
 measure_type_detailed_defense='Advanced',
 date_from_nullable=selected_date[0],
-date_to_nullable=selected_date[1]
+date_to_nullable=selected_date[1],
 timeout=30).get_data_frames()[0]
 
 
