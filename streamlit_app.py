@@ -65,7 +65,7 @@ season_type_all_star="Regular Season",
 measure_type_detailed_defense='Advanced',
 date_from_nullable=selected_date[0],
 date_to_nullable=selected_date[1]
-).get_data_frames()[0]
+timeout=30).get_data_frames()[0]
 
 
 normalized_off_rating = normalize_ratings(list(team_advanced_stats['OFF_RATING']),False)
