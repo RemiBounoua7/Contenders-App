@@ -6,6 +6,17 @@ import base64
 from nba_api.stats.endpoints import leaguedashteamstats
 from nba_api.stats.static import teams
 
+headers = {
+    "Host": "stats.nba.com",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                  "AppleWebKit/537.36 (KHTML, like Gecko) "
+                  "Chrome/120.0.0.0 Safari/537.36",
+    "Accept": "application/json, text/plain, */*",
+    "Referer": "https://www.nba.com/",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Connection": "keep-alive",
+}
+
 def normalize_ratings(c1,defensive):
     
     #Takes a list, normalizes it and returns the normalized list
@@ -66,6 +77,7 @@ try:
     measure_type_detailed_defense='Advanced',
     date_from_nullable=selected_date[0].strftime("%m/%d/%Y"),
     date_to_nullable=selected_date[1].strftime("%m/%d/%Y"),
+    headers=headers,
     timeout=30).get_data_frames()[0]
 except Exception as e:
     st.error(f"Failed to fetch NBA data: {e}")
