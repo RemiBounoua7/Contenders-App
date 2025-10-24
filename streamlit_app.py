@@ -62,10 +62,10 @@ image_mapping = {
 
 
 year=2026
-st.write(datetime.datetime.today().strftime('%m/%d/%Y'))
+
 selected_date = st.slider("Select a time interval and visualize how teams did in that span", 
                           min_value=datetime.datetime(2025,10,21), 
-                          max_value= datetime.datetime.today(), 
+                          max_value= datetime.datetime(2026,4,15), 
                           value=(datetime.datetime(2025,10,21),
                                  datetime.datetime.today()))
 
