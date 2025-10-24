@@ -64,9 +64,9 @@ image_mapping = {
 year=2026
 
 selected_date = st.slider("Select a time interval and visualize how teams did in that span", 
-                          min_value=datetime.datetime(2025,10,22), 
+                          min_value=datetime.datetime(2025,10,21), 
                           max_value= datetime.datetime(2026,4,13), 
-                          value=(datetime.datetime(2025,10,22),
+                          value=(datetime.datetime(2025,10,21),
                                  datetime.datetime(2026,4,13)))
 
 # Fetch advanced stats for the year
@@ -77,7 +77,7 @@ try:
     measure_type_detailed_defense='Advanced',
     date_from_nullable=selected_date[0].strftime("%m/%d/%Y"),
     date_to_nullable=selected_date[1].strftime("%m/%d/%Y"),
-    headers=headers,
+    league_id_nullable="00",
     timeout=30).get_data_frames()[0]
 except Exception as e:
     st.error(f"Failed to fetch NBA data: {e}")
