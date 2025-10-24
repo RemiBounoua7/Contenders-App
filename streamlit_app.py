@@ -65,9 +65,9 @@ year=2026
 
 selected_date = st.slider("Select a time interval and visualize how teams did in that span", 
                           min_value=datetime.datetime(2025,10,21), 
-                          max_value= datetime.datetime(2026,4,13), 
+                          max_value= datetime.today().strftime('%m/%d/%Y'), 
                           value=(datetime.datetime(2025,10,21),
-                                 datetime.datetime(2026,4,13)))
+                                 datetime.today().strftime('%m/%d/%Y')))
 
 # Fetch advanced stats for the year
 try:
