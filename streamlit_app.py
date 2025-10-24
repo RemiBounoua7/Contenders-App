@@ -61,13 +61,13 @@ image_mapping = {
 }
 
 
-year=2025
+year=2026
 
 selected_date = st.slider("Select a time interval and visualize how teams did in that span", 
-                          min_value=datetime.datetime(2024,10,24), 
-                          max_value= datetime.datetime(2025,4,13), 
-                          value=(datetime.datetime(2024,10,24),
-                                 datetime.datetime(2025,4,13)))
+                          min_value=datetime.datetime(2025,10,22), 
+                          max_value= datetime.datetime(2026,4,13), 
+                          value=(datetime.datetime(2025,10,22),
+                                 datetime.datetime(2026,4,13)))
 
 # Fetch advanced stats for the year
 try:
@@ -153,4 +153,5 @@ twitter_url = "https://x.com/ZieseI"
 st.write("Follow me on Twitter for more visualizations like this one. Link [here](%s)" % twitter_url)
 
 #Prevent scroling to the top of the page. Deprecated method but nothing else works
+
 st.experimental_set_query_params(slider=selected_date[0])
