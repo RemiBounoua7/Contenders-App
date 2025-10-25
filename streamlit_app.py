@@ -61,13 +61,26 @@ image_mapping = {
 }
 
 
+start_date = datetime.datetime(2025, 10, 21)
+end_date = datetime.datetime(2026, 4, 12)
+
+today = datetime.datetime.today()
+
+
+# --- Store the default only once per session (so it won’t reset)
+if "selected_date_range" not in st.session_state:
+    st.session_state["selected_date_range"] = (start_date, today)
+
+selected_date = st.slider(
+    "Select a time interval and visualize how teams did in that span",
+    min_value=start_date,
+    max_value=end_date,
+    value=st.session_state["selected_date_range"]
+)
+
+
 year=2026
 
-selected_date = st.slider("Select a time interval and visualize how teams did in that span", 
-                          min_value=datetime.datetime(2025,10,21), 
-                          max_value= datetime.datetime(2026,4,12), 
-                          value=(datetime.datetime(2025,10,21),
-                                 datetime.datetime.today()))
 
 # Fetch advanced stats for the year
 try:
