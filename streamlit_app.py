@@ -124,8 +124,8 @@ for _, row in filtered_data.iterrows():
             y=row['Normalized Defensive Rating'],  # N-DRTG
             xref="x",
             yref="y",
-            sizex=.11,
-            sizey=.11,
+            sizex=.10,
+            sizey=.10,
             sizing="contain",
             xanchor="center",
             yanchor="middle",
