@@ -40,6 +40,17 @@ def normalize_ratings(c1,defensive):
 
 url = "https://remibounoua7.github.io/NBA-Championship-Corner/"
 
+st.set_page_config(
+    page_title="Contenders App",
+    page_icon="⭐",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    
+)
+
+
+
+
 st.title("Contender Detector")
 st.write('''Get a glimpse at which teams are well setup today to win the title. 
 Below is a graph where teams are ranked based on their relative Offense and Defense. The more a team is to the right(/top), the best it is on offense(/defense). 
@@ -144,18 +155,19 @@ fig.add_shape(type="circle",
 
 # Update axes and layout
 fig.update_layout(
-    xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
-    yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False),
-    height=750,
+    xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False, title_font_size=20),
+    yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False, title_font_size=20),
+    height=1500,
+    width=1500,
     title=f"Contenders from {selected_date[0].day}/{selected_date[0].month}/{selected_date[0].year} to {selected_date[1].day}/{selected_date[1].month}/{selected_date[1].year}",
-)
+    title_font_size=25)   
 fig.add_annotation(x=.99, y=-0.035,
             text="@ZieseI",
             showarrow=False,
             yshift=10,
             font=dict(
                 family="sans serif",
-                size=15,
+                size=20,
                 color="#D3D5D7",
                 )
             )
