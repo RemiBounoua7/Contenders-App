@@ -5,6 +5,7 @@ import datetime
 import base64
 from nba_api.stats.endpoints import leaguedashteamstats
 from nba_api.stats.static import teams
+from plotly.subplots import make_subplots
 
 headers = {
     "Host": "stats.nba.com",
@@ -174,9 +175,144 @@ fig.add_annotation(x=.99, y=-0.035,
 # Display plot
 st.plotly_chart(fig)
 
+
+
+team_advanced_stats = leaguedashteamstats.LeagueDashTeamStats(
+    season=f"{year-1}-{str(year)[-2:]}",
+    season_type_all_star="Regular Season",
+    measure_type_detailed_defense='Four Factors',
+    timeout=30,
+    league_id_nullable="00",
+    date_from_nullable=selected_date[0].strftime("%m/%d/%Y"),
+    date_to_nullable=selected_date[1].strftime("%m/%d/%Y")
+).get_data_frames()[0][['TEAM_ID', 'TEAM_NAME', 'GP', 'W', 'L', 'W_PCT', 'MIN', 'EFG_PCT',
+       'FTA_RATE', 'TM_TOV_PCT', 'OREB_PCT', 'OPP_EFG_PCT', 'OPP_FTA_RATE',
+       'OPP_TOV_PCT', 'OPP_OREB_PCT']]
+
+normalized_tov = normalize_ratings(list(team_advanced_stats['TM_TOV_PCT']),False)
+normalized_opp_tov = normalize_ratings(list(team_advanced_stats['OPP_TOV_PCT']),False)
+
+normalized_ftr = normalize_ratings(list(team_advanced_stats['FTA_RATE']),False)
+normalized_opp_ftr = normalize_ratings(list(team_advanced_stats['OPP_FTA_RATE']),False)
+
+normalized_orb = normalize_ratings(list(team_advanced_stats['OREB_PCT']),False)
+normalized_opp_orb = normalize_ratings(list(team_advanced_stats['OPP_OREB_PCT']),False)
+
+normalized_efg = normalize_ratings(list(team_advanced_stats['EFG_PCT']),False)
+normalized_opp_efg = normalize_ratings(list(team_advanced_stats['OPP_EFG_PCT']),False)
+
+FourFactors_df = pd.DataFrame({
+    "Team":team_names,
+    "Normalized TOV%": normalized_tov,
+    "Normalized FTr": normalized_ftr,
+    "Normalized ORB%": normalized_orb,
+    "Normalized EFG%": normalized_efg,
+    "Normalized Opp TOV%": normalized_opp_tov,
+    "Normalized Opp FTr": normalized_opp_ftr,
+    "Normalized Opp ORB%": normalized_opp_orb,
+    "Normalized Opp EFG%": normalized_opp_efg
+})
+
+
+fig_4Factors = make_subplots(rows=2, cols=2)
+
+# Add custom images for each point
+for _, row in FourFactors_df.iterrows():
+    #st.image(image_mapping[row['Team']])
+    fig_4Factors.add_layout_image(
+        dict(
+            source=image_mapping[row['Team']],
+            
+            x=row['Normalized Opp TOV%'],  
+            y=row['Normalized TOV%'],  
+            xref="x",
+            yref="y",
+            sizex=.10,
+            sizey=.10,
+            sizing="contain",
+            xanchor="center",
+            yanchor="middle",
+            layer="above"
+        ),row=1, col=1
+    )
+    fig_4Factors.add_layout_image(
+        dict(
+            source=image_mapping[row['Team']],
+            
+            x=row['Normalized FTr'],  
+            y=row['Normalized Opp FTr'],  
+            xref="x",
+            yref="y",
+            sizex=.10,
+            sizey=.10,
+            sizing="contain",
+            xanchor="center",
+            yanchor="middle",
+            layer="above"
+        ),row=1, col=2
+    )
+    fig_4Factors.add_layout_image(
+        dict(
+            source=image_mapping[row['Team']],
+            
+            x=row['Normalized ORB%'],  
+            y=row['Normalized Opp ORB%'],  
+            xref="x",
+            yref="y",
+            sizex=.10,
+            sizey=.10,
+            sizing="contain",
+            xanchor="center",
+            yanchor="middle",
+            layer="above"
+        ),row=2, col=1
+    )
+    fig_4Factors.add_layout_image(
+        dict(
+            source=image_mapping[row['Team']],
+            
+            x=row['Normalized EFG%'],  
+            y=row['Normalized Opp EFG%'],  
+            xref="x",
+            yref="y",
+            sizex=.10,
+            sizey=.10,
+            sizing="contain",
+            xanchor="center",
+            yanchor="middle",
+            layer="above"
+        ),row=2, col=2
+    )
+# Update axes and layout
+
+# Update xaxis properties
+fig_4Factors.update_xaxes(title_text="Opp TOV%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=1)
+fig_4Factors.update_xaxes(title_text="FTr",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=2)
+fig_4Factors.update_xaxes(title_text="ORB%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=1)
+fig_4Factors.update_xaxes(title_text="EFG%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=2)
+
+# Update yaxis properties
+fig_4Factors.update_yaxes(title_text="TOV%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=1)
+fig_4Factors.update_yaxes(title_text="Opp FTr",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=2)
+fig_4Factors.update_yaxes(title_text="Opp ORB%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=1)
+fig_4Factors.update_yaxes(title_text="Opp EFG%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=2)
+
+fig_4Factors.update_layout(
+    height=1500,
+    width=1500,
+    title=f"4 Factors from {selected_date[0].day}/{selected_date[0].month}/{selected_date[0].year} to {selected_date[1].day}/{selected_date[1].month}/{selected_date[1].year}",
+    title_font_size=30)   
+
+# Display plot
+st.plotly_chart(fig_4Factors)
+
+
+
+
 twitter_url = "https://x.com/ZieseI"
 st.write("Follow me on Twitter for more visualizations like this one. Link [here](%s)" % twitter_url)
 
-#Prevent scroling to the top of the page. Deprecated method but nothing else works
 
+
+#Prevent scroling to the top of the page. Deprecated method but nothing else works
 st.experimental_set_query_params(slider=selected_date[0])
