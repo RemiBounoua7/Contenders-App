@@ -156,8 +156,8 @@ fig.add_shape(type="circle",
 
 # Update axes and layout
 fig.update_layout(
-    xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False, title_font_size=20),
-    yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False, title_font_size=20),
+    xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False, title_font_size=20,showticklabels=False),
+    yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False, title_font_size=20,showticklabels=False),
     height=1500,
     width=1500,
     title=f"Contenders from {selected_date[0].day}/{selected_date[0].month}/{selected_date[0].year} to {selected_date[1].day}/{selected_date[1].month}/{selected_date[1].year}",
@@ -286,16 +286,16 @@ for _, row in FourFactors_df.iterrows():
 # Update axes and layout
 
 # Update xaxis properties
-fig_4Factors.update_xaxes(title_text="Opp TOV%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=1)
-fig_4Factors.update_xaxes(title_text="FTr",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=2)
-fig_4Factors.update_xaxes(title_text="ORB%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=1)
-fig_4Factors.update_xaxes(title_text="EFG%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=2)
+fig_4Factors.update_xaxes(title_text="Opp TOV%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=1,showticklabels=False)
+fig_4Factors.update_xaxes(title_text="FTr",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=2,showticklabels=False)
+fig_4Factors.update_xaxes(title_text="ORB%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=1,showticklabels=False)
+fig_4Factors.update_xaxes(title_text="EFG%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=2,showticklabels=False)
 
 # Update yaxis properties
-fig_4Factors.update_yaxes(title_text="TOV%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=1)
-fig_4Factors.update_yaxes(title_text="Opp FTr",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=2)
-fig_4Factors.update_yaxes(title_text="Opp ORB%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=1)
-fig_4Factors.update_yaxes(title_text="Opp EFG%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=2)
+fig_4Factors.update_yaxes(title_text="TOV%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=1,showticklabels=False)
+fig_4Factors.update_yaxes(title_text="Opp FTr",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=2,showticklabels=False)
+fig_4Factors.update_yaxes(title_text="Opp ORB%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=1,showticklabels=False)
+fig_4Factors.update_yaxes(title_text="Opp EFG%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=2,showticklabels=False)
 
 fig_4Factors.update_layout(
     height=1500,
