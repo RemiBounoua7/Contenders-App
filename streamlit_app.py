@@ -156,19 +156,19 @@ fig.add_shape(type="circle",
 
 # Update axes and layout
 fig.update_layout(
-    xaxis=dict(title="Normalized Offensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False, title_font_size=20,showticklabels=False),
-    yaxis=dict(title="Normalized Defensive Rating",range=[-0.05, 1.05], showgrid=False, zeroline=False, title_font_size=20,showticklabels=False),
+    xaxis=dict(title="Offense",range=[-0.05, 1.05], showgrid=False, zeroline=False, title_font_size=45,showticklabels=False),
+    yaxis=dict(title="Defense",range=[-0.05, 1.05], showgrid=False, zeroline=False, title_font_size=45,showticklabels=False),
     height=1500,
     width=1500,
     title=f"Contenders from {selected_date[0].day}/{selected_date[0].month}/{selected_date[0].year} to {selected_date[1].day}/{selected_date[1].month}/{selected_date[1].year}",
-    title_font_size=25)   
+    title_font_size=50)   
 fig.add_annotation(x=.99, y=-0.035,
             text="@ZieseI",
             showarrow=False,
             yshift=10,
             font=dict(
                 family="sans serif",
-                size=20,
+                size=10,
                 color="#D3D5D7",
                 )
             )
@@ -286,22 +286,22 @@ for _, row in FourFactors_df.iterrows():
 # Update axes and layout
 
 # Update xaxis properties
-fig_4Factors.update_xaxes(title_text="Opp TOV%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=1,showticklabels=False)
-fig_4Factors.update_xaxes(title_text="FTr",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=2,showticklabels=False)
-fig_4Factors.update_xaxes(title_text="ORB%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=1,showticklabels=False)
-fig_4Factors.update_xaxes(title_text="EFG%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=2,showticklabels=False)
+fig_4Factors.update_xaxes(title_text="Opp TOV%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=30, row=1, col=1,showticklabels=False)
+fig_4Factors.update_xaxes(title_text="FTr",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=30, row=1, col=2,showticklabels=False)
+fig_4Factors.update_xaxes(title_text="ORB%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=30, row=2, col=1,showticklabels=False)
+fig_4Factors.update_xaxes(title_text="EFG%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=30, row=2, col=2,showticklabels=False)
 
 # Update yaxis properties
-fig_4Factors.update_yaxes(title_text="TOV%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=1,showticklabels=False)
-fig_4Factors.update_yaxes(title_text="Opp FTr",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=1, col=2,showticklabels=False)
-fig_4Factors.update_yaxes(title_text="Opp ORB%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=1,showticklabels=False)
-fig_4Factors.update_yaxes(title_text="Opp EFG%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=20, row=2, col=2,showticklabels=False)
+fig_4Factors.update_yaxes(title_text="TOV%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=30, row=1, col=1,showticklabels=False)
+fig_4Factors.update_yaxes(title_text="Opp FTr",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=30, row=1, col=2,showticklabels=False)
+fig_4Factors.update_yaxes(title_text="Opp ORB%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=30, row=2, col=1,showticklabels=False)
+fig_4Factors.update_yaxes(title_text="Opp EFG%",range=[-0.05, 1.05], showgrid=True, zeroline=False, title_font_size=30, row=2, col=2,showticklabels=False)
 
 fig_4Factors.update_layout(
     height=1500,
     width=1500,
     title=f"4 Factors from {selected_date[0].day}/{selected_date[0].month}/{selected_date[0].year} to {selected_date[1].day}/{selected_date[1].month}/{selected_date[1].year}",
-    title_font_size=30)   
+    title_font_size=50)   
 
 # Display plot
 st.plotly_chart(fig_4Factors)
